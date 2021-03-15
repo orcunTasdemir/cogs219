@@ -11,6 +11,8 @@
     <script src="jspsych-6.3.1/plugins/jspsych-audio-keyboard-response.js"></script>
     <script src="jspsych-6.3.1/plugins/jspsych-preload.js"></script>
     <script src="jspsych-6.3.1/plugins/jspsych-html-button-response.js"></script>
+    <script src="jspsych-6.3.1/plugins/jspsych-fullscreen.js"></script>
+    <script src="jspsych-6.3.1/plugins/jspsych-call-function.js"></script>
     <script src="jspsych-6.3.1/plugins/jspsych-webgazer-init-camera.js"></script>
     <script src="jspsych-6.3.1/plugins/jspsych-webgazer-calibrate.js"></script>
     <script src="jspsych-6.3.1/plugins/jspsych-webgazer-validate.js"></script>
@@ -18,14 +20,17 @@
     <script src="jspsych-6.3.1/extensions/jspsych-ext-webgazer.js"></script>
 
     <!-- This document sets up the default style of the webpage from a linked css file -->
-    <!-- <link href="jspsych-6.3.0/css/jspsych.css" rel="stylesheet" type="text/css"> -->
-
-    <!--- update I have created a new css file to hide the mouse, it is under the main folder called styleSheet -->
-    <link href="styleSheet.css" rel="stylesheet" type="text/css">
+    <link href="jspsych-6.3.0/css/jspsych.css" rel="stylesheet" type="text/css">
 
     <style>
         * {
             max-width: 100%;
+        }
+        
+        img {
+            max-width: 96%;
+            max-height: 96vh;
+            cursor: none;
         }
     </style>
 
@@ -443,62 +448,52 @@
     };
     timeline.push(instructions);
 
+    var fullscreen_enter = {
+        type: 'fullscreen',
+        fullscreen_mode: true
 
-    /* This is the randomization I am doing to select between which mp4 to play, This only works for
-    one trial with a single pair of filler/real mp4, the code looks very different probably after
-    we have all the scenes.*/
-    // stimulus = ""
-    //     /* How you create a random number.*/
-    // var rn = Math.round(Math.random());
-    // console.log(rn);
-    // if (rn == 1) {
-    //     console.log('went in eat');
-    //     stimulus = "eatCake.mp3"
-    // } else {
-    //     console.log('went in move');
-    //     stimulus = "moveCake.mp3"
-    // }
-
+    }
+    timeline.push(fullscreen_enter);
 
     var test_stimuli = [{
-        scene: 'c1.png',
-        stimulus: ['1r.m4a', '1nr.m4a']
+        scene: 'scene/c1.png',
+        stimulus: ['audio/1r.mp3', 'audio/1nr.mp3']
     }, {
-        scene: 'c2.png',
-        stimulus: ['2r.m4a', '2nr.m4a']
+        scene: 'scene/c2.png',
+        stimulus: ['audio/2r.mp3', 'audio/2nr.mp3']
     }, {
-        scene: 'c3.png',
-        stimulus: ['3r.m4a', '3nr.m4a']
+        scene: 'scene/c3.png',
+        stimulus: ['audio/3r.mp3', 'audio/3nr.mp3']
     }, {
-        scene: 'c4.png',
-        stimulus: ['4r.m4a', '4nr.m4a']
+        scene: 'scene/c4.png',
+        stimulus: ['audio/4r.mp3', 'audio/4nr.mp3']
     }, {
-        scene: 'c5.png',
-        stimulus: ['5r.m4a', '5nr.m4a']
+        scene: 'scene/c5.png',
+        stimulus: ['audio/5r.mp3', 'audio/5nr.mp3']
     }, {
-        scene: 'c6.png',
-        stimulus: ['6r.m4a', '6nr.m4a']
+        scene: 'scene/c6.png',
+        stimulus: ['audio/6r.mp3', 'audio/6nr.mp3']
     }, {
-        scene: 'c7.png',
-        stimulus: ['7r.m4a', '7nr.m4a']
+        scene: 'scene/c7.png',
+        stimulus: ['audio/7r.mp3', 'audio/7nr.mp3']
     }, {
-        scene: 'c8.png',
-        stimulus: ['8r.m4a', '8nr.m4a']
+        scene: 'scene/c8.png',
+        stimulus: ['audio/8r.mp3', 'audio/8nr.mp3']
     }, {
-        scene: 'c12.png',
-        stimulus: ['12r.m4a', '12nr.m4a']
+        scene: 'scene/c12.png',
+        stimulus: ['audio/12r.mp3', 'audio/12nr.mp3']
     }, {
-        scene: 'c13.png',
-        stimulus: ['13r.m4a', '13nr.m4a']
+        scene: 'scene/c13.png',
+        stimulus: ['audio/13r.mp3', 'audio/13nr.mp3']
     }, {
-        scene: 'c14.png',
-        stimulus: ['14r.m4a', '14nr.m4a']
+        scene: 'scene/c14.png',
+        stimulus: ['audio/14r.mp3', 'audio/14nr.mp3']
     }, {
-        scene: 'c15.png',
-        stimulus: ['15r.m4a', '15nr.m4a']
+        scene: 'scene/c15.png',
+        stimulus: ['audio/15r.mp3', 'audio/15nr.mp3']
     }, {
-        scene: 'c16.png',
-        stimulus: ['16r.m4a', '16nr.m4a']
+        scene: 'scene/c16.png',
+        stimulus: ['audio/16r.mp3', 'audio/16nr.mp3']
     }];
 
     function shuffle(a) {
@@ -515,6 +510,7 @@
     choose = [0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1]
     shuffle(choose)
     i = 0
+    console.log(choose)
 
     /* First trial [trial0], gets a keyboard response after the audio is presented.*/
     var trials = {
