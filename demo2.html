@@ -568,14 +568,31 @@
           <img src="scene/t1.png"></img>
           `,
         stimulus: "audio/1t.mp3",
-        choices: ['f', 'j']
+        choices: ['f', 'j'],
+        on_finish: function(data) {
+            // Score the response as correct or incorrect.
+            if (jsPsych.pluginAPI.compareKeys(data.response, "f")) {
+                data.correct = true;
+            } else {
+                data.correct = false;
+            }
+        }
     };
     timeline.push(attempt1);
 
     /*post trial attempt*/
     var postattempt1 = {
         type: "html-keyboard-response",
-        stimulus: '<p> <strong> Good Job! </strong> </p> <p> There is no fireplace, so it is not possible for the person to light the fire. We will have one more trial. </p> <p> Press any key to continue </p>',
+        stimulus: function() {
+            var last_trial_correct = jsPsych.data.get().last(1).values()[0].correct;
+            if (last_trial_correct) {
+                return "<p>Wrong. There is no fireplace so it is not possible!</p>";;
+                // the parameter value has to be returned from the function
+            } else {
+                return "<p> <strong> Good Job! </strong> </p> <p> There is no fireplace, so it is not possible for the person to light the fire. We will have one more trial. </p> <p> Press any key to continue </p>"
+                    // the parameter value has to be returned from the function
+            }
+        }
     };
     timeline.push(postattempt1);
 
@@ -587,13 +604,31 @@
           <img src="scene/t2.png"></img>
           `,
         stimulus: "audio/2t.mp3",
-        choices: ['f', 'j']
+        choices: ['f', 'j'],
+        on_finish: function(data) {
+            // Score the response as correct or incorrect.
+            if (jsPsych.pluginAPI.compareKeys(data.response, "f")) {
+                data.correct = true;
+            } else {
+                data.correct = false;
+            }
+        }
     };
     timeline.push(attempt2);
 
     var postattemtp2 = {
         type: "html-keyboard-response",
-        stimulus: '<p> <strong> Good Job! </strong> </p> <p> There is a postman and the postman can ride the bike. Now that you understand, we will continue with the experiment. Please remember to keep your head as still as possible </p> <p> Press any key to continue </p>',
+        stimulus: function() {
+            var last_trial_correct = jsPsych.data.get().last(1).values()[0].correct;
+            if (last_trial_correct) {
+                return "<p> <strong> Good Job! </strong> </p> <p> There is a postman and the postman can ride the bike. Now that you understand, we will continue with the experiment. Please remember to keep your head as still as possible </p> <p> Press any key to continue </p>";
+                // the parameter value has to be returned from the function
+            } else {
+                return "<p>Wrong. There is a postman and the postman can ride the bike!</p>";
+                // the parameter value has to be returned from the function
+            }
+
+        }
     };
     timeline.push(postattemtp2);
 
