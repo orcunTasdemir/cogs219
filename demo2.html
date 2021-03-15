@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>My experiment</title>
+    <!-- Here the jspsych libraries are being imported inside the webpage so that
+    we can use functions from these libraries in our code. -->
+    <script src="jspsych-6.3.1/jspsych.js"></script>
+    <script src="jspsych-6.3.1/plugins/jspsych-html-keyboard-response.js"></script>
+    <script src="jspsych-6.3.1/plugins/jspsych-image-keyboard-response.js"></script>
+    <script src="jspsych-6.3.1/plugins/jspsych-audio-keyboard-response.js"></script>
+    <script src="jspsych-6.3.1/plugins/jspsych-preload.js"></script>
+    <script src="jspsych-6.3.1/plugins/jspsych-html-button-response.js"></script>
+    <script src="jspsych-6.3.1/plugins/jspsych-webgazer-init-camera.js"></script>
+    <script src="jspsych-6.3.1/plugins/jspsych-webgazer-calibrate.js"></script>
+    <script src="jspsych-6.3.1/plugins/jspsych-webgazer-validate.js"></script>
+    <script src="js/webgazer.js"></script>
+    <script src="jspsych-6.3.1/extensions/jspsych-ext-webgazer.js"></script>
+
+    <!-- This document sets up the default style of the webpage from a linked css file -->
+    <!-- <link href="jspsych-6.3.0/css/jspsych.css" rel="stylesheet" type="text/css"> -->
+
+    <!--- update I have created a new css file to hide the mouse, it is under the main folder called styleSheet -->
+    <link href="styleSheet.css" rel="stylesheet" type="text/css">
+
+    <style>
+        * {
+            max-width: 100%;
+        }
+    </style>
+
+</head>
+
+<body></body>
+<script>
+    var timeline = [];
+
+    var consent = {
+        type: 'html-button-response',
+        stimulus: `
+      <p>You can elect whether to include your data in our research dataset.</p>
+    `,
+        choices: ['Incude my data', 'Do not include my data'],
+        data: {
+            question: 'consent'
+        }
+    }
+
+
+
+    var precheck_0 = {
+        type: 'html-button-response',
+        stimulus: `
+      <p>This experiment uses your camera for eye tracking.</p>
+      <p>No video is saved from this experiment. The only data recorded are predictions about where you are looking.</p>
+      <p>Before we begin, there are a few things to do that can improve the accuracy of the eye tracking.</p>
+    `,
+        choices: ['Let\'s go!'],
+
+    }
+
+    var precheck_1 = {
+        type: 'html-button-response',
+        stimulus: `
+      <p>If you wear glasses and can complete the task without them, please remove your glasses.</p>
+    `,
+        choices: ['OK'],
+    }
+
+    var precheck_2 = {
+        type: 'html-button-response',
+        stimulus: `
+      <p>Please close additional browser tabs and apps running in the background.<br>The eye tracker works best when there are fewer things running at the same time.</p>
+    `,
+        choices: ['OK'],
+    }
+
+    var precheck_3 = {
+        type: 'html-button-response',
+        stimulus: `
+      <p>Try to avoid bright lights behind you.<br>The eye tracker works best if your face is well lit from the front.<br>If you can, adjust the lighting in your room.</p>
+    `,
+        choices: ['OK'],
+    }
+
+    var camera_instructions = {
+        type: 'html-button-response',
+        stimulus: `
+      <p>In order to participate you must allow the experiment to use your camera.</p>
+      <p>You will be prompted to do this on the next screen.</p>
+    `,
+        choices: ['Click to begin'],
+    }
+
+    var init_camera = {
+        type: 'webgazer-init-camera'
+    }
+
+    var main_instructions = {
+        type: 'html-button-response',
+        stimulus: `
+      <p>Now you'll complete a series of calibrations and validations.</p>
+      <p>The calibration will be reset after each round, so it is OK to move a little bit<br>in between the end of a validation and the start of the next calibration.</p>
+      <p>Please keep your head still during each round.</p>
+    `,
+        choices: ['Got it'],
+    }
+
+    var main_instructions_2 = {
+        type: 'html-button-response',
+        stimulus: `
+      <p>During the calibration phase, please look at each dot and click on it.</p>
+      <p>During the validation phase, just look at each dot while it is on the screen.</p>
+    `,
+        choices: ['Got it'],
+    }
+
+    var fullscreen_enter = {
+        type: 'fullscreen',
+        fullscreen_mode: true
+
+    }
+
+    var calibration_instruction = {
+        type: 'html-button-response',
+        stimulus: `
+      <p>Calibration phase next.</p>
+      <p>Click on the dots.</p>
+    `,
+        choices: ['Got it'],
+        post_trial_gap: 1000
+    }
+
+    var calibration = {
+        type: 'webgazer-calibrate',
+        calibration_points: jsPsych.timelineVariable('calibration_points'),
+        repetitions_per_point: jsPsych.timelineVariable('repetitions_per_point'),
+        randomize_calibration_order: true,
+    }
+
+    var validation_instruction = {
+        type: 'html-button-response',
+        stimulus: `
+      <p>Validation phase next.</p>
+      <p>Look at the dots.</p>
+    `,
+        choices: ['Got it'],
+        post_trial_gap: 1000
+    }
+
+    var validation = {
+        type: 'webgazer-validate',
+        validation_points: function() {
+            return jsPsych.randomization.shuffle([
+                [25, 25],
+                [25, 75],
+                [50, 50],
+                [75, 75],
+                [75, 25],
+                [15, 15],
+                [15, 85],
+                [85, 15],
+                [85, 85],
+                [37.5, 37.5],
+                [37.5, 62.5],
+                [62.5, 37.5],
+                [62.5, 62.5]
+            ])
+        },
+        validation_point_coordinates: 'percent',
+        show_validation_data: false,
+        roi_radius: 150,
+        time_to_saccade: 1000,
+        validation_duration: 2000,
+        save_trial_parameters: [{
+            validation_points: true
+        }],
+        data: {
+            clicks: jsPsych.timelineVariable('clicks'),
+            pattern: jsPsych.timelineVariable('pattern')
+        }
+    }
+
+    var round_over = {
+        type: 'html-button-response',
+        stimulus: `
+      <p>Round complete.</p>
+      <p>You can move a little bit, but please try to return you head to the same general location before continuing.</p>
+    `,
+        choices: ['Got it'],
+        post_trial_gap: 1000,
+        on_start: function() {
+            jsPsych.extensions.webgazer.resetCalibration();
+        }
+    }
+
+    var cal_pts_5 = [
+        [25, 25],
+        [25, 75],
+        [50, 50],
+        [75, 75],
+        [75, 25]
+    ];
+    var cal_pts_15_spread = [
+        [25, 25],
+        [25, 75],
+        [50, 50],
+        [75, 75],
+        [75, 25],
+        [5, 5],
+        [5, 50],
+        [5, 95],
+        [95, 5],
+        [95, 50],
+        [95, 95],
+        [50, 5],
+        [50, 95],
+        [25, 50],
+        [75, 50]
+    ];
+    var cal_pts_25_spread = [
+        [5, 5],
+        [5, 25],
+        [5, 50],
+        [5, 75],
+        [5, 95],
+        [25, 5],
+        [25, 25],
+        [25, 50],
+        [25, 75],
+        [25, 95],
+        [50, 5],
+        [50, 25],
+        [50, 50],
+        [50, 75],
+        [50, 95],
+        [75, 5],
+        [75, 25],
+        [75, 50],
+        [75, 75],
+        [75, 95],
+        [95, 5],
+        [95, 25],
+        [95, 50],
+        [95, 75],
+        [95, 95]
+    ]
+    var cal_pts_15_cond = [
+        [50, 50],
+        [45, 50],
+        [55, 50],
+        [25, 25],
+        [20, 30],
+        [30, 20],
+        [25, 75],
+        [20, 70],
+        [30, 80],
+        [75, 25],
+        [70, 20],
+        [80, 30],
+        [75, 75],
+        [70, 80],
+        [80, 70]
+    ]
+    var cal_pts_25_cond = [
+        [50, 50],
+        [45, 50],
+        [55, 50],
+        [50, 45],
+        [50, 55],
+        [25, 25],
+        [20, 25],
+        [30, 25],
+        [25, 20],
+        [25, 30],
+        [25, 75],
+        [20, 75],
+        [30, 75],
+        [25, 70],
+        [25, 80],
+        [75, 25],
+        [70, 25],
+        [80, 25],
+        [75, 20],
+        [75, 30],
+        [75, 75],
+        [70, 75],
+        [80, 75],
+        [75, 70],
+        [75, 80]
+    ]
+
+
+    var cal_and_val_timeline = {
+        timeline: [calibration_instruction, calibration, validation_instruction, validation, round_over, init_camera],
+        timeline_variables: [{
+            calibration_points: cal_pts_5,
+            repetitions_per_point: 1,
+            clicks: 5,
+            pattern: 'spread'
+        }, {
+            calibration_points: cal_pts_5,
+            repetitions_per_point: 3,
+            clicks: 15,
+            pattern: 'spread'
+        }, {
+            calibration_points: cal_pts_5,
+            repetitions_per_point: 5,
+            clicks: 25,
+            pattern: 'spread'
+        }, {
+            calibration_points: cal_pts_15_spread,
+            repetitions_per_point: 1,
+            clicks: 15,
+            pattern: 'spread'
+        }, {
+            calibration_points: cal_pts_15_cond,
+            repetitions_per_point: 1,
+            clicks: 15,
+            pattern: 'cond'
+        }, {
+            calibration_points: cal_pts_25_spread,
+            repetitions_per_point: 1,
+            clicks: 25,
+            pattern: 'spread'
+        }, {
+            calibration_points: cal_pts_25_cond,
+            repetitions_per_point: 1,
+            clicks: 25,
+            pattern: 'cond'
+        }, ],
+        randomize_order: true
+    }
+
+    var glasses_question = {
+        type: 'html-button-response',
+        stimulus: `<p>Almost done!</p>
+      <p>Did you wear glasses while completing the experiment?</p>`,
+        choices: ['Yes', 'No'],
+        data: {
+            question: 'glasses'
+        }
+    }
+
+    var add_props = {
+        type: 'call-function',
+        func: function() {
+            jsPsych.data.addProperties({
+                user_agent: navigator.userAgent,
+                screen_width_px: window.innerWidth,
+                screen_height_px: window.innerHeight
+            })
+        }
+    }
+
+    var save_server_data = {
+        type: 'call-function',
+        func: function() {
+            var data = jsPsych.data.get().json();
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', 'php/save_json.php');
+            xhr.setRequestHeader('Content-Type', 'application/json');
+            xhr.send(JSON.stringify({
+                filedata: data
+            }));
+        },
+        post_trial_gap: 1000
+    }
+
+    var fullscreen_exit = {
+        type: 'fullscreen',
+        fullscreen_mode: false
+
+    }
+
+    // var done = {
+    //     type: 'html-button-response',
+    //     choices: ['CSV', 'JSON'],
+    //     stimulus: `<p>Done!</p><p>If you'd like to download a copy of your data to explore, click the format you'd like below</p>`,
+    //     on_finish: function(data) {
+    //         if (data.response == 0) {
+    //             jsPsych.data.get().localSave('csv', 'webgazer-sample-data.csv');
+    //         }
+    //         if (data.response == 1) {
+    //             jsPsych.data.get().localSave('json', 'webgazer-sample-data.json');
+    //         }
+    //     }
+    // }
+
+
+    // timeline.push(consent);
+    // timeline.push(precheck_0);
+    // timeline.push(precheck_1);
+    // timeline.push(precheck_2);
+    // timeline.push(precheck_3);
+
+    // timeline.push(camera_instructions);
+    // timeline.push(init_camera);
+    // timeline.push(main_instructions);
+    // timeline.push(main_instructions_2);
+    // timeline.push(fullscreen_enter);
+    // timeline.push(cal_and_val_timeline);
+    // timeline.push(glasses_question);
+    // timeline.push(add_props);
+    // timeline.push(save_server_data);
+    // timeline.push(fullscreen_exit);
+    // timeline.push(done);
+
+
+    /* preload images and audio files:
+    Here we preload all the additional jpeg and mp4 files for the experiment. This might look different with many more
+    files we will have at the end.*/
+    var preload = {
+            type: 'preload',
+            auto_preload: true
+        }
+        /*this is how you push to timeline array*/
+    timeline.push(preload);
+
+    /* define welcome message trial */
+    var welcome = {
+        type: "html-keyboard-response",
+        stimulus: "Welcome to the experiment. Press any key to begin."
+    };
+    timeline.push(welcome);
+
+    /* define instructions trial */
+    var instructions = {
+        type: "html-keyboard-response",
+        /* Feel free to edit any of the on screen messages like this one */
+        stimulus: `
+        <p>In this experiment, different scenes will appear in the center 
+        of the screen alongside a voice recording that will be played.</p>
+        <p>If the sentence is applicable to the scene, 
+        press the letter F on the keyboard.</p>
+        <p>If the scene seems to not be applicable, press the letter J.</p>             
+        <p style="text-align:center">Press any key to begin.</p>
+       
+      `,
+        /* This is just to have a 2 seconds long (2000ms) pause between when they
+        press continue and when the experiment starts.*/
+        post_trial_gap: 2000
+    };
+    timeline.push(instructions);
+
+
+    /* This is the randomization I am doing to select between which mp4 to play, This only works for
+    one trial with a single pair of filler/real mp4, the code looks very different probably after
+    we have all the scenes.*/
+    // stimulus = ""
+    //     /* How you create a random number.*/
+    // var rn = Math.round(Math.random());
+    // console.log(rn);
+    // if (rn == 1) {
+    //     console.log('went in eat');
+    //     stimulus = "eatCake.mp3"
+    // } else {
+    //     console.log('went in move');
+    //     stimulus = "moveCake.mp3"
+    // }
+
+
+    var test_stimuli = [{
+        scene: 'c1.png',
+        stimulus: ['1r.m4a', '1nr.m4a']
+    }, {
+        scene: 'c2.png',
+        stimulus: ['2r.m4a', '2nr.m4a']
+    }, {
+        scene: 'c3.png',
+        stimulus: ['3r.m4a', '3nr.m4a']
+    }, {
+        scene: 'c4.png',
+        stimulus: ['4r.m4a', '4nr.m4a']
+    }, {
+        scene: 'c5.png',
+        stimulus: ['5r.m4a', '5nr.m4a']
+    }, {
+        scene: 'c6.png',
+        stimulus: ['6r.m4a', '6nr.m4a']
+    }, {
+        scene: 'c7.png',
+        stimulus: ['7r.m4a', '7nr.m4a']
+    }, {
+        scene: 'c8.png',
+        stimulus: ['8r.m4a', '8nr.m4a']
+    }, {
+        scene: 'c12.png',
+        stimulus: ['12r.m4a', '12nr.m4a']
+    }, {
+        scene: 'c13.png',
+        stimulus: ['13r.m4a', '13nr.m4a']
+    }, {
+        scene: 'c14.png',
+        stimulus: ['14r.m4a', '14nr.m4a']
+    }, {
+        scene: 'c15.png',
+        stimulus: ['15r.m4a', '15nr.m4a']
+    }, {
+        scene: 'c16.png',
+        stimulus: ['16r.m4a', '16nr.m4a']
+    }];
+
+    function shuffle(a) {
+        var j, x, i;
+        for (i = a.length - 1; i > 0; i--) {
+            j = Math.floor(Math.random() * (i + 1));
+            x = a[i];
+            a[i] = a[j];
+            a[j] = x;
+        }
+        return a;
+    }
+
+    choose = [0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1]
+    shuffle(choose)
+    i = 0
+
+    /* First trial [trial0], gets a keyboard response after the audio is presented.*/
+    var trials = {
+        type: 'audio-keyboard-response',
+        stimulus: function() {
+            stimulus = jsPsych.timelineVariable('stimulus')[choose[i]]
+            i++
+            return stimulus;
+        },
+        choices: ['f', 'j'],
+        /* How you put the scene inside this trial, this is a html code to embed the image inside the webpage.*/
+        prompt: function() {
+            prompt = "<p><img src='" + jsPsych.timelineVariable('scene') + "'></img></p>"
+            return prompt;
+        },
+        response_ends_trial: true
+    };
+
+    var test_procedure = {
+        timeline: [trials],
+        timeline_variables: test_stimuli
+
+    }
+
+    timeline.push(test_procedure);
+
+
+
+
+    /* start the experiment */
+    jsPsych.init({
+        timeline: timeline,
+        extensions: [{
+            type: 'webgazer'
+        }]
+    });
+</script>
+
+</html>
