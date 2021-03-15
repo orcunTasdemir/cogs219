@@ -35,343 +35,343 @@
 <script>
     var timeline = [];
 
-    var consent = {
-        type: 'html-button-response',
-        stimulus: `
-      <p>You can elect whether to include your data in our research dataset.</p>
-    `,
-        choices: ['Incude my data', 'Do not include my data'],
-        data: {
-            question: 'consent'
-        }
-    }
+    // var consent = {
+    //     type: 'html-button-response',
+    //     stimulus: `
+    //   <p>You can elect whether to include your data in our research dataset.</p>
+    // `,
+    //     choices: ['Incude my data', 'Do not include my data'],
+    //     data: {
+    //         question: 'consent'
+    //     }
+    // }
 
 
 
-    var precheck_0 = {
-        type: 'html-button-response',
-        stimulus: `
-      <p>This experiment uses your camera for eye tracking.</p>
-      <p>No video is saved from this experiment. The only data recorded are predictions about where you are looking.</p>
-      <p>Before we begin, there are a few things to do that can improve the accuracy of the eye tracking.</p>
-    `,
-        choices: ['Let\'s go!'],
+    // var precheck_0 = {
+    //     type: 'html-button-response',
+    //     stimulus: `
+    //   <p>This experiment uses your camera for eye tracking.</p>
+    //   <p>No video is saved from this experiment. The only data recorded are predictions about where you are looking.</p>
+    //   <p>Before we begin, there are a few things to do that can improve the accuracy of the eye tracking.</p>
+    // `,
+    //     choices: ['Let\'s go!'],
 
-    }
+    // }
 
-    var precheck_1 = {
-        type: 'html-button-response',
-        stimulus: `
-      <p>If you wear glasses and can complete the task without them, please remove your glasses.</p>
-    `,
-        choices: ['OK'],
-    }
+    // var precheck_1 = {
+    //     type: 'html-button-response',
+    //     stimulus: `
+    //   <p>If you wear glasses and can complete the task without them, please remove your glasses.</p>
+    // `,
+    //     choices: ['OK'],
+    // }
 
-    var precheck_2 = {
-        type: 'html-button-response',
-        stimulus: `
-      <p>Please close additional browser tabs and apps running in the background.<br>The eye tracker works best when there are fewer things running at the same time.</p>
-    `,
-        choices: ['OK'],
-    }
+    // var precheck_2 = {
+    //     type: 'html-button-response',
+    //     stimulus: `
+    //   <p>Please close additional browser tabs and apps running in the background.<br>The eye tracker works best when there are fewer things running at the same time.</p>
+    // `,
+    //     choices: ['OK'],
+    // }
 
-    var precheck_3 = {
-        type: 'html-button-response',
-        stimulus: `
-      <p>Try to avoid bright lights behind you.<br>The eye tracker works best if your face is well lit from the front.<br>If you can, adjust the lighting in your room.</p>
-    `,
-        choices: ['OK'],
-    }
+    // var precheck_3 = {
+    //     type: 'html-button-response',
+    //     stimulus: `
+    //   <p>Try to avoid bright lights behind you.<br>The eye tracker works best if your face is well lit from the front.<br>If you can, adjust the lighting in your room.</p>
+    // `,
+    //     choices: ['OK'],
+    // }
 
-    var camera_instructions = {
-        type: 'html-button-response',
-        stimulus: `
-      <p>In order to participate you must allow the experiment to use your camera.</p>
-      <p>You will be prompted to do this on the next screen.</p>
-    `,
-        choices: ['Click to begin'],
-    }
+    // var camera_instructions = {
+    //     type: 'html-button-response',
+    //     stimulus: `
+    //   <p>In order to participate you must allow the experiment to use your camera.</p>
+    //   <p>You will be prompted to do this on the next screen.</p>
+    // `,
+    //     choices: ['Click to begin'],
+    // }
 
-    var init_camera = {
-        type: 'webgazer-init-camera'
-    }
+    // var init_camera = {
+    //     type: 'webgazer-init-camera'
+    // }
 
-    var main_instructions = {
-        type: 'html-button-response',
-        stimulus: `
-      <p>Now you'll complete a series of calibrations and validations.</p>
-      <p>The calibration will be reset after each round, so it is OK to move a little bit<br>in between the end of a validation and the start of the next calibration.</p>
-      <p>Please keep your head still during each round.</p>
-    `,
-        choices: ['Got it'],
-    }
+    // var main_instructions = {
+    //     type: 'html-button-response',
+    //     stimulus: `
+    //   <p>Now you'll complete a series of calibrations and validations.</p>
+    //   <p>The calibration will be reset after each round, so it is OK to move a little bit<br>in between the end of a validation and the start of the next calibration.</p>
+    //   <p>Please keep your head still during each round.</p>
+    // `,
+    //     choices: ['Got it'],
+    // }
 
-    var main_instructions_2 = {
-        type: 'html-button-response',
-        stimulus: `
-      <p>During the calibration phase, please look at each dot and click on it.</p>
-      <p>During the validation phase, just look at each dot while it is on the screen.</p>
-    `,
-        choices: ['Got it'],
-    }
+    // var main_instructions_2 = {
+    //     type: 'html-button-response',
+    //     stimulus: `
+    //   <p>During the calibration phase, please look at each dot and click on it.</p>
+    //   <p>During the validation phase, just look at each dot while it is on the screen.</p>
+    // `,
+    //     choices: ['Got it'],
+    // }
 
-    var fullscreen_enter = {
-        type: 'fullscreen',
-        fullscreen_mode: true
+    // var fullscreen_enter = {
+    //     type: 'fullscreen',
+    //     fullscreen_mode: true
 
-    }
+    // }
 
-    var calibration_instruction = {
-        type: 'html-button-response',
-        stimulus: `
-      <p>Calibration phase next.</p>
-      <p>Click on the dots.</p>
-    `,
-        choices: ['Got it'],
-        post_trial_gap: 1000
-    }
+    // var calibration_instruction = {
+    //     type: 'html-button-response',
+    //     stimulus: `
+    //   <p>Calibration phase next.</p>
+    //   <p>Click on the dots.</p>
+    // `,
+    //     choices: ['Got it'],
+    //     post_trial_gap: 1000
+    // }
 
-    var calibration = {
-        type: 'webgazer-calibrate',
-        calibration_points: jsPsych.timelineVariable('calibration_points'),
-        repetitions_per_point: jsPsych.timelineVariable('repetitions_per_point'),
-        randomize_calibration_order: true,
-    }
+    // var calibration = {
+    //     type: 'webgazer-calibrate',
+    //     calibration_points: jsPsych.timelineVariable('calibration_points'),
+    //     repetitions_per_point: jsPsych.timelineVariable('repetitions_per_point'),
+    //     randomize_calibration_order: true,
+    // }
 
-    var validation_instruction = {
-        type: 'html-button-response',
-        stimulus: `
-      <p>Validation phase next.</p>
-      <p>Look at the dots.</p>
-    `,
-        choices: ['Got it'],
-        post_trial_gap: 1000
-    }
+    // var validation_instruction = {
+    //     type: 'html-button-response',
+    //     stimulus: `
+    //   <p>Validation phase next.</p>
+    //   <p>Look at the dots.</p>
+    // `,
+    //     choices: ['Got it'],
+    //     post_trial_gap: 1000
+    // }
 
-    var validation = {
-        type: 'webgazer-validate',
-        validation_points: function() {
-            return jsPsych.randomization.shuffle([
-                [25, 25],
-                [25, 75],
-                [50, 50],
-                [75, 75],
-                [75, 25],
-                [15, 15],
-                [15, 85],
-                [85, 15],
-                [85, 85],
-                [37.5, 37.5],
-                [37.5, 62.5],
-                [62.5, 37.5],
-                [62.5, 62.5]
-            ])
-        },
-        validation_point_coordinates: 'percent',
-        show_validation_data: false,
-        roi_radius: 150,
-        time_to_saccade: 1000,
-        validation_duration: 2000,
-        save_trial_parameters: [{
-            validation_points: true
-        }],
-        data: {
-            clicks: jsPsych.timelineVariable('clicks'),
-            pattern: jsPsych.timelineVariable('pattern')
-        }
-    }
+    // var validation = {
+    //     type: 'webgazer-validate',
+    //     validation_points: function() {
+    //         return jsPsych.randomization.shuffle([
+    //             [25, 25],
+    //             [25, 75],
+    //             [50, 50],
+    //             [75, 75],
+    //             [75, 25],
+    //             [15, 15],
+    //             [15, 85],
+    //             [85, 15],
+    //             [85, 85],
+    //             [37.5, 37.5],
+    //             [37.5, 62.5],
+    //             [62.5, 37.5],
+    //             [62.5, 62.5]
+    //         ])
+    //     },
+    //     validation_point_coordinates: 'percent',
+    //     show_validation_data: false,
+    //     roi_radius: 150,
+    //     time_to_saccade: 1000,
+    //     validation_duration: 2000,
+    //     save_trial_parameters: [{
+    //         validation_points: true
+    //     }],
+    //     data: {
+    //         clicks: jsPsych.timelineVariable('clicks'),
+    //         pattern: jsPsych.timelineVariable('pattern')
+    //     }
+    // }
 
-    var round_over = {
-        type: 'html-button-response',
-        stimulus: `
-      <p>Round complete.</p>
-      <p>You can move a little bit, but please try to return you head to the same general location before continuing.</p>
-    `,
-        choices: ['Got it'],
-        post_trial_gap: 1000,
-        on_start: function() {
-            jsPsych.extensions.webgazer.resetCalibration();
-        }
-    }
+    // var round_over = {
+    //     type: 'html-button-response',
+    //     stimulus: `
+    //   <p>Round complete.</p>
+    //   <p>You can move a little bit, but please try to return you head to the same general location before continuing.</p>
+    // `,
+    //     choices: ['Got it'],
+    //     post_trial_gap: 1000,
+    //     on_start: function() {
+    //         jsPsych.extensions.webgazer.resetCalibration();
+    //     }
+    // }
 
-    var cal_pts_5 = [
-        [25, 25],
-        [25, 75],
-        [50, 50],
-        [75, 75],
-        [75, 25]
-    ];
-    var cal_pts_15_spread = [
-        [25, 25],
-        [25, 75],
-        [50, 50],
-        [75, 75],
-        [75, 25],
-        [5, 5],
-        [5, 50],
-        [5, 95],
-        [95, 5],
-        [95, 50],
-        [95, 95],
-        [50, 5],
-        [50, 95],
-        [25, 50],
-        [75, 50]
-    ];
-    var cal_pts_25_spread = [
-        [5, 5],
-        [5, 25],
-        [5, 50],
-        [5, 75],
-        [5, 95],
-        [25, 5],
-        [25, 25],
-        [25, 50],
-        [25, 75],
-        [25, 95],
-        [50, 5],
-        [50, 25],
-        [50, 50],
-        [50, 75],
-        [50, 95],
-        [75, 5],
-        [75, 25],
-        [75, 50],
-        [75, 75],
-        [75, 95],
-        [95, 5],
-        [95, 25],
-        [95, 50],
-        [95, 75],
-        [95, 95]
-    ]
-    var cal_pts_15_cond = [
-        [50, 50],
-        [45, 50],
-        [55, 50],
-        [25, 25],
-        [20, 30],
-        [30, 20],
-        [25, 75],
-        [20, 70],
-        [30, 80],
-        [75, 25],
-        [70, 20],
-        [80, 30],
-        [75, 75],
-        [70, 80],
-        [80, 70]
-    ]
-    var cal_pts_25_cond = [
-        [50, 50],
-        [45, 50],
-        [55, 50],
-        [50, 45],
-        [50, 55],
-        [25, 25],
-        [20, 25],
-        [30, 25],
-        [25, 20],
-        [25, 30],
-        [25, 75],
-        [20, 75],
-        [30, 75],
-        [25, 70],
-        [25, 80],
-        [75, 25],
-        [70, 25],
-        [80, 25],
-        [75, 20],
-        [75, 30],
-        [75, 75],
-        [70, 75],
-        [80, 75],
-        [75, 70],
-        [75, 80]
-    ]
+    // var cal_pts_5 = [
+    //     [25, 25],
+    //     [25, 75],
+    //     [50, 50],
+    //     [75, 75],
+    //     [75, 25]
+    // ];
+    // var cal_pts_15_spread = [
+    //     [25, 25],
+    //     [25, 75],
+    //     [50, 50],
+    //     [75, 75],
+    //     [75, 25],
+    //     [5, 5],
+    //     [5, 50],
+    //     [5, 95],
+    //     [95, 5],
+    //     [95, 50],
+    //     [95, 95],
+    //     [50, 5],
+    //     [50, 95],
+    //     [25, 50],
+    //     [75, 50]
+    // ];
+    // var cal_pts_25_spread = [
+    //     [5, 5],
+    //     [5, 25],
+    //     [5, 50],
+    //     [5, 75],
+    //     [5, 95],
+    //     [25, 5],
+    //     [25, 25],
+    //     [25, 50],
+    //     [25, 75],
+    //     [25, 95],
+    //     [50, 5],
+    //     [50, 25],
+    //     [50, 50],
+    //     [50, 75],
+    //     [50, 95],
+    //     [75, 5],
+    //     [75, 25],
+    //     [75, 50],
+    //     [75, 75],
+    //     [75, 95],
+    //     [95, 5],
+    //     [95, 25],
+    //     [95, 50],
+    //     [95, 75],
+    //     [95, 95]
+    // ]
+    // var cal_pts_15_cond = [
+    //     [50, 50],
+    //     [45, 50],
+    //     [55, 50],
+    //     [25, 25],
+    //     [20, 30],
+    //     [30, 20],
+    //     [25, 75],
+    //     [20, 70],
+    //     [30, 80],
+    //     [75, 25],
+    //     [70, 20],
+    //     [80, 30],
+    //     [75, 75],
+    //     [70, 80],
+    //     [80, 70]
+    // ]
+    // var cal_pts_25_cond = [
+    //     [50, 50],
+    //     [45, 50],
+    //     [55, 50],
+    //     [50, 45],
+    //     [50, 55],
+    //     [25, 25],
+    //     [20, 25],
+    //     [30, 25],
+    //     [25, 20],
+    //     [25, 30],
+    //     [25, 75],
+    //     [20, 75],
+    //     [30, 75],
+    //     [25, 70],
+    //     [25, 80],
+    //     [75, 25],
+    //     [70, 25],
+    //     [80, 25],
+    //     [75, 20],
+    //     [75, 30],
+    //     [75, 75],
+    //     [70, 75],
+    //     [80, 75],
+    //     [75, 70],
+    //     [75, 80]
+    // ]
 
 
-    var cal_and_val_timeline = {
-        timeline: [calibration_instruction, calibration, validation_instruction, validation, round_over, init_camera],
-        timeline_variables: [{
-            calibration_points: cal_pts_5,
-            repetitions_per_point: 1,
-            clicks: 5,
-            pattern: 'spread'
-        }, {
-            calibration_points: cal_pts_5,
-            repetitions_per_point: 3,
-            clicks: 15,
-            pattern: 'spread'
-        }, {
-            calibration_points: cal_pts_5,
-            repetitions_per_point: 5,
-            clicks: 25,
-            pattern: 'spread'
-        }, {
-            calibration_points: cal_pts_15_spread,
-            repetitions_per_point: 1,
-            clicks: 15,
-            pattern: 'spread'
-        }, {
-            calibration_points: cal_pts_15_cond,
-            repetitions_per_point: 1,
-            clicks: 15,
-            pattern: 'cond'
-        }, {
-            calibration_points: cal_pts_25_spread,
-            repetitions_per_point: 1,
-            clicks: 25,
-            pattern: 'spread'
-        }, {
-            calibration_points: cal_pts_25_cond,
-            repetitions_per_point: 1,
-            clicks: 25,
-            pattern: 'cond'
-        }, ],
-        randomize_order: true
-    }
+    // var cal_and_val_timeline = {
+    //     timeline: [calibration_instruction, calibration, validation_instruction, validation, round_over, init_camera],
+    //     timeline_variables: [{
+    //         calibration_points: cal_pts_5,
+    //         repetitions_per_point: 1,
+    //         clicks: 5,
+    //         pattern: 'spread'
+    //     }, {
+    //         calibration_points: cal_pts_5,
+    //         repetitions_per_point: 3,
+    //         clicks: 15,
+    //         pattern: 'spread'
+    //     }, {
+    //         calibration_points: cal_pts_5,
+    //         repetitions_per_point: 5,
+    //         clicks: 25,
+    //         pattern: 'spread'
+    //     }, {
+    //         calibration_points: cal_pts_15_spread,
+    //         repetitions_per_point: 1,
+    //         clicks: 15,
+    //         pattern: 'spread'
+    //     }, {
+    //         calibration_points: cal_pts_15_cond,
+    //         repetitions_per_point: 1,
+    //         clicks: 15,
+    //         pattern: 'cond'
+    //     }, {
+    //         calibration_points: cal_pts_25_spread,
+    //         repetitions_per_point: 1,
+    //         clicks: 25,
+    //         pattern: 'spread'
+    //     }, {
+    //         calibration_points: cal_pts_25_cond,
+    //         repetitions_per_point: 1,
+    //         clicks: 25,
+    //         pattern: 'cond'
+    //     }, ],
+    //     randomize_order: true
+    // }
 
-    var glasses_question = {
-        type: 'html-button-response',
-        stimulus: `<p>Almost done!</p>
-      <p>Did you wear glasses while completing the experiment?</p>`,
-        choices: ['Yes', 'No'],
-        data: {
-            question: 'glasses'
-        }
-    }
+    // var glasses_question = {
+    //     type: 'html-button-response',
+    //     stimulus: `<p>Almost done!</p>
+    //   <p>Did you wear glasses while completing the experiment?</p>`,
+    //     choices: ['Yes', 'No'],
+    //     data: {
+    //         question: 'glasses'
+    //     }
+    // }
 
-    var add_props = {
-        type: 'call-function',
-        func: function() {
-            jsPsych.data.addProperties({
-                user_agent: navigator.userAgent,
-                screen_width_px: window.innerWidth,
-                screen_height_px: window.innerHeight
-            })
-        }
-    }
+    // var add_props = {
+    //     type: 'call-function',
+    //     func: function() {
+    //         jsPsych.data.addProperties({
+    //             user_agent: navigator.userAgent,
+    //             screen_width_px: window.innerWidth,
+    //             screen_height_px: window.innerHeight
+    //         })
+    //     }
+    // }
 
-    var save_server_data = {
-        type: 'call-function',
-        func: function() {
-            var data = jsPsych.data.get().json();
-            var xhr = new XMLHttpRequest();
-            xhr.open('POST', 'php/save_json.php');
-            xhr.setRequestHeader('Content-Type', 'application/json');
-            xhr.send(JSON.stringify({
-                filedata: data
-            }));
-        },
-        post_trial_gap: 1000
-    }
+    // var save_server_data = {
+    //     type: 'call-function',
+    //     func: function() {
+    //         var data = jsPsych.data.get().json();
+    //         var xhr = new XMLHttpRequest();
+    //         xhr.open('POST', 'php/save_json.php');
+    //         xhr.setRequestHeader('Content-Type', 'application/json');
+    //         xhr.send(JSON.stringify({
+    //             filedata: data
+    //         }));
+    //     },
+    //     post_trial_gap: 1000
+    // }
 
-    var fullscreen_exit = {
-        type: 'fullscreen',
-        fullscreen_mode: false
+    // var fullscreen_exit = {
+    //     type: 'fullscreen',
+    //     fullscreen_mode: false
 
-    }
+    // }
 
     // var done = {
     //     type: 'html-button-response',
