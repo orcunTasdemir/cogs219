@@ -33,6 +33,7 @@ jsPsych.extensions['webgazer'] = (function () {
       state.initialized = false;
       state.activeTrial = false;
       state.round_predictions = params.round_predictions;
+      state.gazeUpdateCallbacks = [];
 
       // hide video by default
       extension.hideVideo();
@@ -187,29 +188,36 @@ jsPsych.extensions['webgazer'] = (function () {
     }
   }
 
-  extension.getCurrentPrediction = async function () {
-    var prediction = await state.webgazer.getCurrentPrediction();
-    if (state.round_predictions && prediction !== null) {
-      prediction.x = Math.round(prediction.x);
-      prediction.y = Math.round(prediction.y);
-    }
-    return prediction;
+  extension.getCurrentPrediction = function () {
+    return state.currentGaze;
   }
 
-  // extension.addGazeDataUpdateListener(listener){
-  //   state.webgazer.setGazeListener(listener);
-  // }
+  extension.onGazeUpdate = function(callback){
+    state.gazeUpdateCallbacks.push(callback);
+    return function(){
+      state.gazeUpdateCallbacks = state.gazeUpdateCallbacks.filter(function(item){
+        return item !== callback;
+      });
+    }
+  }
 
   function handleGazeDataUpdate(gazeData, elapsedTime) {
-    if (gazeData !== null && state.activeTrial) {
+    if (gazeData !== null){
       var d = {
         x: state.round_predictions ? Math.round(gazeData.x) : gazeData.x,
-        y: state.round_predictions ? Math.round(gazeData.y) : gazeData.y,
-        t: Math.round(performance.now() - state.currentTrialStart)
+        y: state.round_predictions ? Math.round(gazeData.y) : gazeData.y
       }
-      state.currentTrialData.push(d); // add data to current trial's data
+      if(state.activeTrial) {
+        d.t = Math.round(performance.now() - state.currentTrialStart)
+        state.currentTrialData.push(d); // add data to current trial's data
+      }
+      state.currentGaze = d;
+      for(var i=0; i<state.gazeUpdateCallbacks.length; i++){
+        state.gazeUpdateCallbacks[i](d);
+      }
+    } else {
+      state.currentGaze = null;
     }
-
   }
 
   return extension;

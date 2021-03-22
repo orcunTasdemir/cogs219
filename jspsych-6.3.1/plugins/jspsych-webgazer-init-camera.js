@@ -15,9 +15,9 @@ jsPsych.plugins["webgazer-init-camera"] = (function () {
         type: jsPsych.plugins.parameterType.HTML_STRING,
         default: `
             <p>Position your head so that the webcam has a good view of your eyes.</p>
-            <p>Use the video in the upper-left corner as a guide. Center your face in the box and look directly towards the camera.</p>
-            <p>It is important that you try and keep your head reasonably still throughout the experiment, so please take a moment to adjust your setup as needed.</p>
-            <p>When your face is centered in the box and the box turns green, you can click to continue.</p>`
+            <p>Center your face in the box and look directly towards the camera.</p>
+            <p>It is important that you try and keep your head reasonably still throughout the experiment, so please take a moment to adjust your setup to be comfortable.</p>
+            <p>When your face is centered in the box and the box is green, you can click to continue.</p>`
       },
       button_text: {
         type: jsPsych.plugins.parameterType.STRING,
@@ -40,6 +40,14 @@ jsPsych.plugins["webgazer-init-camera"] = (function () {
     }
 
     function showTrial() {
+
+      var style = `
+        <style id="webgazer-center-style">
+          #webgazerVideoContainer { left: calc(50% - 160px) !important;}
+        </style>
+      `
+      document.querySelector('head').insertAdjacentHTML('beforeend', style);
+
       var html = `
         <div id='webgazer-init-container' style='position: relative; width:100vw; height:100vh'>
         </div>`
@@ -53,7 +61,7 @@ jsPsych.plugins["webgazer-init-camera"] = (function () {
 
 
       wg_container.innerHTML = `
-        <div style='position: absolute; top: 50%; left: calc(50% - 350px); transform: translateY(-50%); width:700px;'>
+        <div style='position: absolute; top: 260px; left: calc(50% - 400px); width:800px;'>
         ${trial.instructions}
         <button id='jspsych-wg-cont' class='jspsych-btn' disabled>${trial.button_text}</button>
         </div>`
@@ -98,8 +106,10 @@ jsPsych.plugins["webgazer-init-camera"] = (function () {
 
     // function to end trial when it is time
     function end_trial() {
+      
       jsPsych.extensions['webgazer'].pause();
       jsPsych.extensions['webgazer'].hideVideo();
+
 
       // kill any remaining setTimeout handlers
       jsPsych.pluginAPI.clearAllTimeouts();
@@ -111,6 +121,8 @@ jsPsych.plugins["webgazer-init-camera"] = (function () {
 
       // clear the display
       display_element.innerHTML = '';
+
+      document.querySelector('#webgazer-center-style').remove();
 
       // move on to the next trial
       jsPsych.finishTrial(trial_data);
