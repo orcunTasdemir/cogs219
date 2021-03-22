@@ -123,7 +123,8 @@
             } else {
                 data.correct = false;
             }
-        }
+        },
+        response_allowed_while_playing: false
     };
     timeline.push(attempt1);
 
@@ -169,7 +170,8 @@
             } else {
                 data.correct = false;
             }
-        }
+        },
+        response_allowed_while_playing: false
     };
     timeline.push(attempt2);
 
@@ -380,7 +382,7 @@
             return prompt;
         },
         response_ends_trial: true,
-        //response_allowed_while_playing: false,
+        response_allowed_while_playing: false,
         data: {
             verb_type: function() {
                 if (jsPsych.timelineVariable('stimulus').length > 1) {
@@ -418,7 +420,7 @@
     jsPsych.init({
         timeline: timeline,
         on_finish: function() {
-            jsPsych.data.get().localSave('csv', 'mydata.csv');
+            //jsPsych.data.get().localSave('csv', 'mydata.csv');
             jsPsych.data.displayData();
         },
         extensions: [{
