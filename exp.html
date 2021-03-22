@@ -37,8 +37,10 @@
 
 <body></body>
 <script>
+    /*Create Timeline*/
     var timeline = [];
 
+    /*Push the eyetracking calibration in*/
     //timeline.push(initial_calibration_timeline);
 
     /* preload images and audio files:
@@ -77,6 +79,7 @@
     };
     timeline.push(instructions);
 
+    /* Enter the fullscreen mode */
     var fullscreen_enter = {
         type: 'fullscreen',
         fullscreen_mode: true
@@ -84,6 +87,7 @@
     }
     timeline.push(fullscreen_enter);
 
+    /* make the cursor invisible inside the web browser screen */
     var cursor_off = {
         type: 'call-function',
         func: function() {
@@ -92,109 +96,7 @@
     }
     timeline.push(cursor_off);
 
-    var test_stimuli = [
-        /*critical scenes*/
-        {
-            scene: 'scene/c1.png',
-            stimulus: ['audio/1r.mp3', 'audio/1nr.mp3']
-        }, {
-            scene: 'scene/c2.png',
-            stimulus: ['audio/2r.mp3', 'audio/2nr.mp3']
-        }, {
-            scene: 'scene/c3.png',
-            stimulus: ['audio/3r.mp3', 'audio/3nr.mp3']
-        }, {
-            scene: 'scene/c4.png',
-            stimulus: ['audio/4r.mp3', 'audio/4nr.mp3']
-        }, {
-            scene: 'scene/c5.png',
-            stimulus: ['audio/5r.mp3', 'audio/5nr.mp3']
-        }, {
-            scene: 'scene/c6.png',
-            stimulus: ['audio/6r.mp3', 'audio/6nr.mp3']
-        }, {
-            scene: 'scene/c7.png',
-            stimulus: ['audio/7r.mp3', 'audio/7nr.mp3']
-        }, {
-            scene: 'scene/c8.png',
-            stimulus: ['audio/8r.mp3', 'audio/8nr.mp3']
-        }, {
-            scene: 'scene/c9.png',
-            stimulus: ['audio/9r.mp3', 'audio/9nr.mp3']
-        }, {
-            scene: 'scene/c10.png',
-            stimulus: ['audio/10r.mp3', 'audio/10nr.mp3']
-        }, {
-            scene: 'scene/c11.png',
-            stimulus: ['audio/11r.mp3', 'audio/11nr.mp3']
-        }, {
-            scene: 'scene/c12.png',
-            stimulus: ['audio/12r.mp3', 'audio/12nr.mp3']
-        }, {
-            scene: 'scene/c13.png',
-            stimulus: ['audio/13r.mp3', 'audio/13nr.mp3']
-        }, {
-            scene: 'scene/c14.png',
-            stimulus: ['audio/14r.mp3', 'audio/14nr.mp3']
-        }, {
-            scene: 'scene/c15.png',
-            stimulus: ['audio/15r.mp3', 'audio/15nr.mp3']
-        }, {
-            scene: 'scene/c16.png',
-            stimulus: ['audio/16r.mp3', 'audio/16nr.mp3']
-        },
-        /*filler scenes*/
-        {
-            scene: 'scene/f1.png',
-            stimulus: ['audio/1f.mp3']
-        }, {
-            scene: 'scene/f2.png',
-            stimulus: ['audio/2f.mp3']
-        }, {
-            scene: 'scene/f3.png',
-            stimulus: ['audio/3f.mp3']
-        }, {
-            scene: 'scene/f4.png',
-            stimulus: ['audio/4f.mp3']
-        }, {
-            scene: 'scene/f5.png',
-            stimulus: ['audio/5f.mp3']
-        }, {
-            scene: 'scene/f6.png',
-            stimulus: ['audio/6f.mp3']
-        }, {
-            scene: 'scene/f7.png',
-            stimulus: ['audio/7f.mp3']
-        }, {
-            scene: 'scene/f8.png',
-            stimulus: ['audio/8f.mp3']
-        }, {
-            scene: 'scene/f9.png',
-            stimulus: ['audio/9f.mp3']
-        }, {
-            scene: 'scene/f10.png',
-            stimulus: ['audio/10f.mp3']
-        }, {
-            scene: 'scene/f11.png',
-            stimulus: ['audio/11f.mp3']
-        }, {
-            scene: 'scene/f12.png',
-            stimulus: ['audio/12f.mp3']
-        }, {
-            scene: 'scene/f13.png',
-            stimulus: ['audio/13f.mp3']
-        }, {
-            scene: 'scene/f14.png',
-            stimulus: ['audio/14f.mp3']
-        }, {
-            scene: 'scene/f15.png',
-            stimulus: ['audio/15f.mp3']
-        }, {
-            scene: 'scene/f16.png',
-            stimulus: ['audio/16f.mp3']
-        }
-    ];
-
+    /* attemp1 prompt */
     var attempt1_prompt = {
         type: "html-keyboard-response",
         stimulus: `
@@ -205,7 +107,6 @@
           `,
         post_trial_gap: 1000
     }
-
     timeline.push(attempt1_prompt);
 
     /* Trial attempt 1*/
@@ -226,7 +127,7 @@
     };
     timeline.push(attempt1);
 
-    /*post trial attempt*/
+    /*post attempt*/
     var postattempt1 = {
         type: "html-keyboard-response",
         stimulus: function() {
@@ -242,7 +143,7 @@
     };
     timeline.push(postattempt1);
 
-
+    /*attempt2 prompt*/
     var attempt2_prompt = {
         type: "html-keyboard-response",
         stimulus: `
@@ -252,9 +153,9 @@
           `,
         post_trial_gap: 1000
     }
-
     timeline.push(attempt2_prompt);
 
+    /* Trial attempt 2*/
     var attempt2 = {
         type: "audio-keyboard-response",
         prompt: `<img src="scene/t2.png"></img>
@@ -272,6 +173,7 @@
     };
     timeline.push(attempt2);
 
+    /*post attempt*/
     var postattemtp2 = {
         type: "html-keyboard-response",
         stimulus: function() {
@@ -288,6 +190,155 @@
     };
     timeline.push(postattemtp2);
 
+    ///////////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////TEST STIMULI////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////////
+
+    /* Create the test stimuli as timeline variables*/
+    var test_stimuli = [
+
+        /*verb type array*/
+        //  {
+        //verb_type: ['restricting', 'non-restricting', 'NA']
+        //},
+
+        /*critical scenes*/
+        {
+            scene: 'scene/c1.png',
+            stimulus: ['audio/1r.mp3', 'audio/1nr.mp3'],
+            verb_type: ['restricting', 'non-restricting', 'NA']
+        }, {
+            scene: 'scene/c2.png',
+            stimulus: ['audio/2r.mp3', 'audio/2nr.mp3'],
+            verb_type: ['restricting', 'non-restricting', 'NA']
+        }, {
+            scene: 'scene/c3.png',
+            stimulus: ['audio/3r.mp3', 'audio/3nr.mp3'],
+            verb_type: ['restricting', 'non-restricting', 'NA']
+        }, {
+            scene: 'scene/c4.png',
+            stimulus: ['audio/4r.mp3', 'audio/4nr.mp3'],
+            verb_type: ['restricting', 'non-restricting', 'NA']
+        }, {
+            scene: 'scene/c5.png',
+            stimulus: ['audio/5r.mp3', 'audio/5nr.mp3'],
+            verb_type: ['restricting', 'non-restricting', 'NA']
+        }, {
+            scene: 'scene/c6.png',
+            stimulus: ['audio/6r.mp3', 'audio/6nr.mp3'],
+            verb_type: ['restricting', 'non-restricting', 'NA']
+        }, {
+            scene: 'scene/c7.png',
+            stimulus: ['audio/7r.mp3', 'audio/7nr.mp3'],
+            verb_type: ['restricting', 'non-restricting', 'NA']
+        }, {
+            scene: 'scene/c8.png',
+            stimulus: ['audio/8r.mp3', 'audio/8nr.mp3'],
+            verb_type: ['restricting', 'non-restricting', 'NA']
+        }, {
+            scene: 'scene/c9.png',
+            stimulus: ['audio/9r.mp3', 'audio/9nr.mp3'],
+            verb_type: ['restricting', 'non-restricting', 'NA']
+        }, {
+            scene: 'scene/c10.png',
+            stimulus: ['audio/10r.mp3', 'audio/10nr.mp3'],
+            verb_type: ['restricting', 'non-restricting', 'NA']
+        }, {
+            scene: 'scene/c11.png',
+            stimulus: ['audio/11r.mp3', 'audio/11nr.mp3'],
+            verb_type: ['restricting', 'non-restricting', 'NA']
+        }, {
+            scene: 'scene/c12.png',
+            stimulus: ['audio/12r.mp3', 'audio/12nr.mp3'],
+            verb_type: ['restricting', 'non-restricting', 'NA']
+        }, {
+            scene: 'scene/c13.png',
+            stimulus: ['audio/13r.mp3', 'audio/13nr.mp3'],
+            verb_type: ['restricting', 'non-restricting', 'NA']
+        }, {
+            scene: 'scene/c14.png',
+            stimulus: ['audio/14r.mp3', 'audio/14nr.mp3'],
+            verb_type: ['restricting', 'non-restricting', 'NA']
+        }, {
+            scene: 'scene/c15.png',
+            stimulus: ['audio/15r.mp3', 'audio/15nr.mp3'],
+            verb_type: ['restricting', 'non-restricting', 'NA']
+        }, {
+            scene: 'scene/c16.png',
+            stimulus: ['audio/16r.mp3', 'audio/16nr.mp3'],
+            verb_type: ['restricting', 'non-restricting', 'NA']
+        },
+        /*filler scenes*/
+        {
+            scene: 'scene/f1.png',
+            stimulus: ['audio/1f.mp3'],
+            verb_type: ['NA']
+        }, {
+            scene: 'scene/f2.png',
+            stimulus: ['audio/2f.mp3'],
+            verb_type: ['NA']
+        }, {
+            scene: 'scene/f3.png',
+            stimulus: ['audio/3f.mp3'],
+            verb_type: ['NA']
+        }, {
+            scene: 'scene/f4.png',
+            stimulus: ['audio/4f.mp3'],
+            verb_type: ['NA']
+        }, {
+            scene: 'scene/f5.png',
+            stimulus: ['audio/5f.mp3'],
+            verb_type: ['NA']
+        }, {
+            scene: 'scene/f6.png',
+            stimulus: ['audio/6f.mp3'],
+            verb_type: ['NA']
+        }, {
+            scene: 'scene/f7.png',
+            stimulus: ['audio/7f.mp3'],
+            verb_type: ['NA']
+        }, {
+            scene: 'scene/f8.png',
+            stimulus: ['audio/8f.mp3'],
+            verb_type: ['NA']
+        }, {
+            scene: 'scene/f9.png',
+            stimulus: ['audio/9f.mp3'],
+            verb_type: ['NA']
+        }, {
+            scene: 'scene/f10.png',
+            stimulus: ['audio/10f.mp3'],
+            verb_type: ['NA']
+        }, {
+            scene: 'scene/f11.png',
+            stimulus: ['audio/11f.mp3'],
+            verb_type: ['NA']
+        }, {
+            scene: 'scene/f12.png',
+            stimulus: ['audio/12f.mp3'],
+            verb_type: ['NA']
+        }, {
+            scene: 'scene/f13.png',
+            stimulus: ['audio/13f.mp3'],
+            verb_type: ['NA']
+        }, {
+            scene: 'scene/f14.png',
+            stimulus: ['audio/14f.mp3'],
+            verb_type: ['NA']
+        }, {
+            scene: 'scene/f15.png',
+            stimulus: ['audio/15f.mp3'],
+            verb_type: ['NA']
+        }, {
+            scene: 'scene/f16.png',
+            stimulus: ['audio/16f.mp3'],
+            verb_type: ['NA']
+        }
+    ];
+
+    ///////////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////SHUFFLE FUNCTION////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////////
 
     function shuffle(a) {
         var j, x, i;
@@ -299,35 +350,57 @@
         }
         return a;
     }
-
     choose = [0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1]
     shuffle(choose)
-    i = 0
-    console.log(choose)
 
-    /* First trial [trial0], gets a keyboard response after the audio is presented.*/
+    /////////////////////////////////////////////////////////////////////////////////////////// 
+    ////////////////////////////////////////EVERY TRIAL////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////////
+    i = 0
+
+    /* All the trials, gets a keyboard response after the audio is presented.*/
     var trials = {
         type: 'audio-keyboard-response',
         stimulus: function() {
             if (jsPsych.timelineVariable('stimulus').length > 1) {
-                console.log(jsPsych.timelineVariable('stimulus').length)
+                //console.log(jsPsych.timelineVariable('stimulus').length)
                 stimulus = jsPsych.timelineVariable('stimulus')[choose[i]]
-                i++
+
             } else {
-                console.log(jsPsych.timelineVariable('stimulus').length)
-                stimulus = jsPsych.timelineVariable('stimulus')
+                //console.log(jsPsych.timelineVariable('stimulus').length)
+                stimulus = jsPsych.timelineVariable('stimulus')[0]
             }
             return stimulus;
         },
         choices: ['f', 'j'],
-        /* How you put the scene inside this trial, this is a html code to embed the image inside the webpage.*/
+        /* How you put the scene inside this trial,
+        this is a html code to embed the image inside the webpage.*/
         prompt: function() {
             prompt = "<p><img src='" + jsPsych.timelineVariable('scene') + "'></img></p>"
             return prompt;
         },
         response_ends_trial: true,
-        response_allowed_while_playing: false
+        //response_allowed_while_playing: false,
+        data: {
+            verb_type: function() {
+                if (jsPsych.timelineVariable('stimulus').length > 1) {
+                    verb_type = jsPsych.timelineVariable('verb_type')[choose[i]]
+                } else {
+                    verb_type = jsPsych.timelineVariable('verb_type')[0]
+                }
+                return verb_type;
+            },
+        },
+        on_finish: function() {
+            if (jsPsych.timelineVariable('stimulus').length > 1) {
+                i++
+            }
+        }
     };
+
+    ///////////////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////TEST PROCEDURE////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////////
 
     var test_procedure = {
         timeline: [trials],
@@ -335,16 +408,18 @@
         randomize_order: true
 
     }
-
     timeline.push(test_procedure);
 
-
+    ///////////////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////EXPERIMENT INITIATION/////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////////
 
     /* start the experiment */
     jsPsych.init({
         timeline: timeline,
         on_finish: function() {
             jsPsych.data.get().localSave('csv', 'mydata.csv');
+            jsPsych.data.displayData();
         },
         extensions: [{
             type: 'webgazer'
