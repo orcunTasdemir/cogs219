@@ -80,12 +80,12 @@
     timeline.push(instructions);
 
     /* Enter the fullscreen mode */
-    var fullscreen_enter = {
-        type: 'fullscreen',
-        fullscreen_mode: true
+    //var fullscreen_enter = {
+    // type: 'fullscreen',
+    // fullscreen_mode: true
 
-    }
-    timeline.push(fullscreen_enter);
+    //}
+    //timeline.push(fullscreen_enter);
 
     /* make the cursor invisible inside the web browser screen */
     var cursor_off = {
@@ -421,7 +421,7 @@
         timeline: timeline,
         on_finish: function() {
             //jsPsych.data.get().localSave('csv', 'mydata.csv');
-            jsPsych.data.displayData();
+            //jsPsych.data.displayData();
         },
         extensions: [{
             type: 'webgazer'
