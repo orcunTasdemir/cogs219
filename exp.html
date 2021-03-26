@@ -420,7 +420,7 @@
     jsPsych.init({
         timeline: timeline,
         on_finish: function() {
-            //jsPsych.data.get().localSave('csv', 'mydata.csv');
+            jsPsych.data.get().localSave('csv', 'mydata.csv');
             //jsPsych.data.displayData();
         },
         extensions: [{
