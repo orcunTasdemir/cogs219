@@ -2,8 +2,9 @@
 <html>
 
 <head>
-    <title>My experiment</title>
+    <title>Experiment</title>
     <script src="jspsych-6.3.1/jspsych.js"></script>
+    <script src="jspsych-6.3.1/plugins/jspsych-call-function.js"></script>
     <script src="jspsych-6.3.1/plugins/jspsych-html-keyboard-response.js"></script>
     <script src="jspsych-6.3.1/plugins/jspsych-image-keyboard-response.js"></script>
     <script src="jspsych-6.3.1/plugins/jspsych-audio-keyboard-response.js"></script>
@@ -30,6 +31,7 @@
             width: auto;
             height: 96vh;
             cursor: none;
+            object-fit: scale-down;
         }
     </style>
 
@@ -51,6 +53,43 @@
     /*Create Timeline*/
     var timeline = [];
 
+    /*Scenes and audios to preload*/
+    var scenes = ['scene/c1.png',
+        'scene/c2.png',
+        'scene/c3.png',
+        'scene/c4.png',
+        'scene/c5.png',
+        'scene/c6.png',
+        'scene/c7.png',
+        'scene/c8.png',
+        'scene/c9.png',
+        'scene/c10.png',
+        'scene/c11.png',
+        'scene/c12.png',
+        'scene/c13.png',
+        'scene/c14.png',
+        'scene/c15.png',
+        'scene/c16.png'
+    ];
+
+    var audios = ['audio/1f.mp3', 'audio/1nr.mp3', 'audio/1r.mp3', 'audio/1t.mp3',
+        'audio/2f.mp3', 'audio/2nr.mp3', 'audio/2r.mp3', 'audio/2t.mp3',
+        'audio/3f.mp3', 'audio/3nr.mp3', 'audio/3r.mp3',
+        'audio/4f.mp3', 'audio/4nr.mp3', 'audio/4r.mp3',
+        'audio/5f.mp3', 'audio/5nr.mp3', 'audio/5r.mp3',
+        'audio/6f.mp3', 'audio/6nr.mp3', 'audio/6r.mp3',
+        'audio/7f.mp3', 'audio/7nr.mp3', 'audio/7r.mp3',
+        'audio/8f.mp3', 'audio/8nr.mp3', 'audio/8r.mp3',
+        'audio/9f.mp3', 'audio/9nr.mp3', 'audio/9r.mp3',
+        'audio/10f.mp3', 'audio/10nr.mp3', 'audio/10r.mp3',
+        'audio/11f.mp3', 'audio/11nr.mp3', 'audio/11r.mp3',
+        'audio/12f.mp3', 'audio/12nr.mp3', 'audio/12r.mp3',
+        'audio/13f.mp3', 'audio/13nr.mp3', 'audio/13r.mp3',
+        'audio/14f.mp3', 'audio/14nr.mp3', 'audio/14r.mp3',
+        'audio/15f.mp3', 'audio/15nr.mp3', 'audio/15r.mp3',
+        'audio/16f.mp3', 'audio/16nr.mp3', 'audio/16r.mp3'
+    ];
+
     /*Push the eyetracking calibration in*/
     timeline.push(initial_calibration_timeline);
 
@@ -58,10 +97,12 @@
     Here we preload all the additional jpeg and mp4 files for the experiment. This might look different with many more
     files we will have at the end.*/
     var preload = {
-            type: 'preload',
-            auto_preload: true
-        }
-        /*this is how you push to timeline array*/
+        type: 'preload',
+        images: scenes,
+        audoi: audios
+    }
+
+    /*this is how you push to timeline array*/
     timeline.push(preload);
 
     /* define welcome message trial */
@@ -89,14 +130,6 @@
         post_trial_gap: 2000
     };
     timeline.push(instructions);
-
-    /* Enter the fullscreen mode */
-    //var fullscreen_enter = {
-    // type: 'fullscreen',
-    // fullscreen_mode: true
-
-    //}
-    //timeline.push(fullscreen_enter);
 
     /* make the cursor invisible inside the web browser screen */
     var cursor_off = {
@@ -145,10 +178,10 @@
         stimulus: function() {
             var last_trial_correct = jsPsych.data.get().last(1).values()[0].correct;
             if (last_trial_correct) {
-                return "<p>Wrong. There is no fireplace so it is not possible!</p>";
+                return "<p>Wrong. There is no fireplace so it is not possible!</p><p>Press any key to continue></p>";
                 // the parameter value has to be returned from the function
             } else {
-                return "<p> <strong> Good Job! </strong> </p> <p> There is no fireplace, so it is not possible for the person to light the fire. We will have one more trial. </p> <p> Press any key to continue </p>"
+                return "<p> <strong> Good Job! </strong> </p> <p> There is no fireplace, so it is not possible for the person to light the fire. We will have one more trial.</p><p>Press any key to continue></p>"
                     // the parameter value has to be returned from the function
             }
         }
@@ -192,10 +225,10 @@
         stimulus: function() {
             var last_trial_correct = jsPsych.data.get().last(1).values()[0].correct;
             if (last_trial_correct) {
-                return "<p> <strong> Good Job! </strong> </p><p> There is a postman and the postman can ride the bike. Now that you understand, we will continue with the experiment. Please remember to keep your head as still as possible </p> <p> Press any key to continue </p>";
+                return "<p> <strong> Good Job! </strong> </p><p> There is a postman and the postman can ride the bike. Now that you understand, we will continue with the experiment. Please remember to keep your head as still as possible </p><p>Press any key to continue></p>";
                 // the parameter value has to be returned from the function
             } else {
-                return "<p>Wrong. There is a postman and the postman can ride the bike!</p><p>Now that you understand, we will continue with the experiment. Please remember to keep your head as still as possible </p> <p> Press any key to continue </p>";
+                return "<p>Wrong. There is a postman and the postman can ride the bike!</p><p>Now that you understand, we will continue with the experiment. Please remember to keep your head as still as possible </p><p>Press any key to continue></p>";
                 // the parameter value has to be returned from the function
             }
         },
@@ -389,11 +422,17 @@
         /* How you put the scene inside this trial,
         this is a html code to embed the image inside the webpage.*/
         prompt: function() {
-            prompt = "<p><img src='" + jsPsych.timelineVariable('scene') + "'></img></p>"
+            prompt = "<img src='" + jsPsych.timelineVariable('scene') + "'></img>"
             return prompt;
         },
         response_ends_trial: true,
-        response_allowed_while_playing: false,
+        response_allowed_while_playing: true,
+        extensions: [{
+            type: 'webgazer',
+            params: {
+                targets: ['#scenes']
+            }
+        }],
         data: {
             verb_type: function() {
                 if (jsPsych.timelineVariable('stimulus').length > 1) {
@@ -427,19 +466,50 @@
     /////////////////////////////////////////EXPERIMENT INITIATION/////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////
 
-
-    var final_trial = {
-        type: 'html-keyboard-response',
-        stimulus: `<p>You've finished the last task. Thanks for participating!</p>
-    <p><a href="https://app.prolific.co/submissions/complete?cc=XXXXXXX">Click here to return to Prolific and complete the study</a>.</p>`,
-        choices: jsPsych.NO_KEYS
+    var save_server_data = {
+        type: 'call-function',
+        func: function() {
+            var data = jsPsych.data.get().json();
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', 'php/save_json.php');
+            xhr.setRequestHeader('Content-Type', 'application/json');
+            xhr.send(JSON.stringify({
+                filedata: data
+            }));
+        },
+        post_trial_gap: 1000
     }
+
+    timeline.push(save_server_data);
+
+    var thanks = {
+        type: "html-keyboard-response",
+        stimulus: "<p> Thank you for participating in our experiment! </p> <p> Can you just let us know if you completed this experiment with glasses? </p> <p> Press <b> f </b> for yes and <b> j </b> for no",
+        choices: ['f', 'j']
+    };
+    timeline.push(thanks);
+
+    var cursor_on = {
+        type: 'call-function',
+        func: function() {
+            document.body.style.cursor = "auto";
+        }
+    }
+    timeline.push(cursor_on);
+
+    var end = {
+        type: "html-keyboard-response",
+        stimulus: `<p>You've finished the last task. Thanks for participating!</p>
+    <p><a href="https://app.prolific.co/submissions/complete?cc=XXXXXXX">Click here to return to Prolific and complete the study</a>.</p>`
+    };
+    timeline.push(end)
+
 
     /* start the experiment */
     jsPsych.init({
         timeline: timeline,
         on_finish: function() {
-            jsPsych.data.get().localSave('csv', 'mydata.csv');
+            //jsPsych.data.get().localSave('json');
             //jsPsych.data.displayData();
         },
         extensions: [{
