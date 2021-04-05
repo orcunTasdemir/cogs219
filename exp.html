@@ -446,6 +446,24 @@
             type: 'webgazer'
         }]
     });
+    
+        ///////////////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////EXPERIMENT END/////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////////
+
+    var thanks = {
+        type: "html-keyboard-response",
+        stimulus: "<p> Thank you for participating in our experiment! </p> <p> Can you just let us know if you completed this experiment with glasses? </p> <p> Press <b> f </b> for yes and <b> j </b> for no",
+        choices: ['f', 'j']    
+    };
+    timeline.push(thanks);
+
+    var end = {
+        type: "html-keyboard-response",
+        stimulus: "Great, we got it. Thank you again for participating!"
+    };
+    timeline.push(end)
+    
 </script>
 
 </html>
